@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OMG Shop 🛍️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eaeded;
+  color: #111;
+}
+
+/* HEADER */
+
+header {
+  background: #131921;
+  color: white;
+  padding: 12px 18px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: #ff9900;
+}
+
+.search {
+  flex: 1;
+  display: flex;
+}
+
+.search input {
+  width: 100%;
+  padding: 13px;
+  font-size: 16px;
+  border: none;
+}
+
+.search button {
+  background: #ff9900;
+  border: none;
+  padding: 0 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cart {
+  font-size: 18px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* NAV */
+
+nav {
+  background: #232f3e;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+/* HERO */
+
+.hero {
+  max-width: 1400px;
+  margin: auto;
+  padding: 45px 25px;
+  background:
+    linear-gradient(120deg, #ff9900, #ffcc66);
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin: 10px;
+}
+
+.hero p {
+  font-size: 21px;
+}
+
+.hero button {
+  padding: 15px 28px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+/* MOTIVATION */
+
+.motivation {
+  max-width: 1400px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 25px;
+  text-align: center;
+}
+
+.motivation h2 {
+  font-size: 30px;
+}
+
+.quote {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px;
+}
+
+/* PRODUCTS */
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.product {
+  background: white;
+  padding: 18px;
+  border-radius: 8px;
+  position: relative;
+  transition: 0.2s;
+}
+
+.product:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 18px #aaa;
+}
+
+.product img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background: #f5f5f5;
+  border-radius: 5px;
+}
+
+.product h3 {
+  min-height: 45px;
+}
+
+.price {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #777;
+  margin-left: 8px;
+}
+
+.rating {
+  color: #f5a623;
+  margin: 8px 0;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #e31837;
+  color: white;
+  padding: 5px 9px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.real {
+  background: #168a45;
+}
+
+.fake {
+  background: #7b3ff2;
+}
+
+.add {
+  width: 100%;
+  border: none;
+  padding: 12px;
+  background: #ffd814;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.add:hover {
+  background: #ffca00;
+}
+
+/* CATEGORIES */
+
+.categories {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  margin-bottom: 25px;
+}
+
+.category {
+  min-width: 140px;
+  background: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* CART */
+
+#cartPanel {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 360px;
+  max-width: 90%;
+  height: 100%;
+  background: white;
+  z-index: 999;
+  padding: 25px;
+  box-shadow: -5px 0 20px #555;
+  transition: 0.3s;
+  overflow-y: auto;
+}
+
+#cartPanel.open {
+  right: 0;
+}
+
+.close {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.cart-item {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+.checkout {
+  width: 100%;
+  padding: 15px;
+  background: #ff9900;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+
+footer {
+  background: #131921;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 30px;
+}
+
+footer a {
+  color: #ff9900;
+}
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+  .topbar {
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    width: 100%;
+    text-align: center;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  nav a {
+    margin: 0 5px;
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="topbar">
+
+<div class="logo">
+OMG<span>Shop</span> 🛍️
+</div>
+
+<div class="search">
+<input
+id="search"
+type="text"
+placeholder="Search OMG Shop..."
+onkeyup="searchProducts()"
+>
+<button>🔍</button>
+</div>
+
+<div class="cart" onclick="openCart()">
+🛒 Cart (<span id="cartCount">0</span>)
+</div>
+
+</div>
+
+</header>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#deals">🔥 Deals</a>
+<a href="#products">Products</a>
+<a href="#motivation">💪 Motivation</a>
+</nav>
+
+
+<section class="hero" id="home">
+
+<h1>Welcome to OMG Shop 🛍️</h1>
+
+<p>
+Everything you want. Deals you'll love. Motivation you need.
+</p>
+
+<button onclick="document.getElementById('products').scrollIntoView()">
+Shop Now →
+</button>
+
+</section>
+
+
+<section class="motivation" id="motivation">
+
+<h2>💪 Daily Motivation</h2>
+
+<div class="quote" id="quote">
+"Believe in yourself. You are capable of more than you think."
+</div>
+
+<button class="add" onclick="newQuote()">
+✨ New Motivation
+</button>
+
+</section>
+
+
+<div class="container">
+
+<h2 class="section-title">Shop by Category</h2>
+
+<div class="categories">
+
+<div class="category">👟<br>Fashion</div>
+<div class="category">🎧<br>Tech</div>
+<div class="category">🏠<br>Home</div>
+<div class="category">💪<br>Fitness</div>
+<div class="category">✨<br>Motivation</div>
+
+</div>
+
+
+<h2 class="section-title" id="deals">
+🔥 Today's Deals
+</h2>
+
+<div class="products">
+
+
+<!-- REAL PRODUCT -->
+
+<div class="product">
+
+<div class="badge real">
+REAL PRODUCT
+</div>
+
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80">
+
+<h3>Nike Air Max 270</h3>
+
+<div class="rating">
+★★★★★
+</div>
+
+<p>
+Real Nike product. Check Nike or an authorized retailer for current availability.
+</p>
+
+<div class="price">
+€111.99
+</div>
+
+<button class="add"
+onclick="addToCart('Nike Air Max 270',111.99)">
+Add to Cart
+</button>
+
+</div>
+
+
+<!-- REAL PRODUCT -->
+
+<div class="product">
+
+<div class="badge real">
+REAL PRODUCT
+</div>
+
+<img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80">
+
+<h3>Stanley Quencher Tumbler</h3>
+
+<div class="rating">
+★★★★★
+</div>
+
+<p>
+Real Stanley product. Availability and price can change.
+</p>
+
+<div class="price">
+€55.00
+</div>
+
+<button class="add"
+onclick="addToCart('Stanley Quencher',55)">
+Add to Cart
+</button>
+
+</div>
+
+
+<!-- REAL PRODUCT -->
+
+<div class="product">
+
+<div class="badge real">
+REAL PRODUCT
+</div>
+
+<img src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=600&q=80">
+
+<h3>Apple AirPods Pro</h3>
+
+<div class="rating">
+★★★★★
+</div>
+
+<p>
+Real Apple product. Check an authorized retailer for current price.
+</p>
+
+<div class="price">
+€159.00
+</div>
+
+<button class="add"
+onclick="addToCart('Apple AirPods Pro',159)">
+Add to Cart
+</button>
+
+</div>
+
+
+<!-- FAKE PRODUCT -->
+
+<div class="product">
+
+<div class="badge fake">
+OMG ORIGINAL
+</div>
+
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80">
+
+<h3>OMG Smart Watch X</h3>
+
+<div class="rating">
+★★★★★
+</div>
+
+<p>
+Fictional OMG Shop product.
+</p>
+
+<div class="price">
+€39.99
+</div>
+
+<button class="add"
+onclick="addToCart('OMG Smart Watch X',39.99)">
+Add to Cart
+</button>
+
+</div>
+
+
+<!-- FAKE PRODUCT -->
+
+<div class="product">
+
+<div class="badge fake">
+OMG ORIGINAL
+</div>
+
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80">
+
+<h3>OMG Motivation Sneakers</h3>
+
+<div class="rating">
+★★★★★
+</div>
+
+<p>
+Walk into every day like you mean it.
+</p>
+
+<div class="price">
+€49.99
+</div>
+
+<button class="add"
+onclick="addToCart('OMG Motivation Sneakers',49.99)">
+Add to Cart
+</button>
+
+</div>
+
+
+<!-- FAKE PRODUCT -->
+
+<div class="product">
+
+<div class="badge fake">
+OMG ORIGINAL
+</div>
+
+<img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80">
+
+<h3>OMG Confidence Hoodie</h3>
+
+<div class="rating">
+★★★★★
+</div>
+
+<p>
+"Be yourself. Everyone else is already taken."
+</p>
+
+<div class="price">
+€34.99
+</div>
+
+<button class="add"
+onclick="addToCart('OMG Confidence Hoodie',34.99)">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CART -->
+
+<div id="cartPanel">
+
+<span class="close" onclick="closeCart()">✕</span>
+
+<h2>🛒 Your Cart</h2>
+
+<div id="cartItems">
+Your cart is empty.
+</div>
+
+<h3>
+Total: €<span id="cartTotal">0.00</span>
+</h3>
+
+<button class="checkout" onclick="checkout()">
+Proceed to Checkout
+</button>
+
+</div>
+
+
+<footer>
+
+<h2>OMG Shop 🛍️</h2>
+
+<p>
+Shop smart. Dream big. Keep going.
+</p>
+
+<p>
+© 2026 OMG Shop
+</p>
+
+</footer>
+
+
+<script>
+
+let cart = [];
+
+function addToCart(name, price) {
+
+cart.push({
+name: name,
+price: price
+});
+
+updateCart();
+
+alert(name + " added to cart! 🛒");
+
+}
+
+
+function updateCart() {
+
+document.getElementById("cartCount").textContent = cart.length;
+
+let html = "";
+let total = 0;
+
+if(cart.length === 0) {
+
+html = "Your cart is empty.";
+
+} else {
+
+cart.forEach((item, index) => {
+
+total += item.price;
+
+html += `
+<div class="cart-item">
+
+<strong>${item.name}</strong>
+
+<br>
+
+€${item.price.toFixed(2)}
+
+<br>
+
+<button onclick="removeItem(${index})">
+Remove
+</button>
+
+</div>
+`;
+
+});
+
+}
+
+document.getElementById("cartItems").innerHTML = html;
+
+document.getElementById("cartTotal").textContent =
+total.toFixed(2);
+
+}
+
+
+function removeItem(index) {
+
+cart.splice(index, 1);
+
+updateCart();
+
+}
+
+
+function openCart() {
+
+document.getElementById("cartPanel")
+.classList.add("open");
+
+}
+
+
+function closeCart() {
+
+document.getElementById("cartPanel")
+.classList.remove("open");
+
+}
+
+
+function checkout() {
+
+if(cart.length === 0) {
+
+alert("Your cart is empty!");
+
+return;
+
+}
+
+alert(
+"This is a demo checkout. Payment has not been connected yet. 🛍️"
+);
+
+}
+
+
+function searchProducts() {
+
+let search =
+document.getElementById("search")
+.value.toLowerCase();
+
+let products =
+document.querySelectorAll(".product");
+
+products.forEach(product => {
+
+let text =
+product.innerText.toLowerCase();
+
+product.style.display =
+text.includes(search)
+? ""
+: "none";
+
+});
+
+}
+
+
+const quotes = [
+
+"Believe in yourself. You are capable of more than you think.",
+
+"Small steps every day create big results.",
+
+"Don't wait for motivation. Create it.",
+
+"Your future self will thank you for starting today.",
+
+"Dream big. Work hard. Stay humble.",
+
+"You don't have to be perfect. Just keep going.",
+
+"Every day is another chance to become stronger.",
+
+"Your only limit is the one you set yourself."
+
+];
+
+
+function newQuote() {
+
+let random =
+Math.floor(Math.random() * quotes.length);
+
+document.getElementById("quote")
+.textContent =
+'"' + quotes[random] + '"';
+
+}
+
+</script>
+
+</body>
+</html>
